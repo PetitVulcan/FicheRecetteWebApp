@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FicheRecette.Model
+namespace FicheRecette.Models
 {
     public class Utilisateur
     {

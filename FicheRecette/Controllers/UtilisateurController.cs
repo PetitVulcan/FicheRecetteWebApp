@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FicheRecette.Model;
+using FicheRecette.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;

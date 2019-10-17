@@ -20,11 +20,7 @@
                 @*<a asp-area="" asp-controller="Recette" asp-action="ListeRecette" class=""><img src="~/images/logo.png" /></a>*@
                 <div class="row barreBouton">
                     <div class="col-lg-offset-2"></div>
-                    @*@if (ViewBag.Admin == true)
-        {
-
-        }*@
-
+                   
                     @if (ViewBag.Logged == true)
                     {
                         <div class="col-lg-2 barreBouton">
@@ -58,7 +54,7 @@
         @RenderBody()
     </section>
     <footer>
-        FicheRecetteV1.0a © Anthony Di Persio - Mars 2019
+        FicheRecetteV1.0b © Anthony Di Persio - Octobre 2019
     </footer>
 </body>
 </html>

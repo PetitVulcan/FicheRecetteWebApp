@@ -1,9 +1,9 @@
-﻿using FicheRecette.Model;
+﻿using FicheRecette.Models;
 using FicheRecette.Tools;
 using System;
 using System.Collections.Generic;
 
-namespace FicheRecette.Model
+namespace FicheRecette.Models
 {
     public class Recette
     {
@@ -17,7 +17,7 @@ namespace FicheRecette.Model
         private string nomRecette;
         private int? nbPersonne;
         private string difficulte;
-        private string ingredient;
+        private List<Ingredient> ingredients;
         private string realisation;
         private List<ImageRecette> images;        
         private static List<Recette> ListeRecette = new List<Recette>();
@@ -26,7 +26,7 @@ namespace FicheRecette.Model
         public string NomRecette { get => nomRecette; set => nomRecette = value; }
         public int? NbPersonne { get => nbPersonne; set => nbPersonne = value; }
         public string Difficulte { get => difficulte; set => difficulte = value; }
-        public string Ingredient { get => ingredient; set => ingredient = value; }
+        public List<Ingredient> Ingredients { get => ingredients; set => ingredients = value; }
         public string Realisation { get => realisation; set => realisation = value; }
         public string NomUtilisateur { get => nomUtilisateur; set => nomUtilisateur = value; }
         public int Id { get => id; set => id = value; }
@@ -36,25 +36,26 @@ namespace FicheRecette.Model
         public int IdUtilisateur { get => idUtilisateur; set => idUtilisateur = value; }
         public int Idrecette { get => idrecette; set => idrecette = value; }
         public string NomCategory { get => nomCategory; set => nomCategory = value; }
-
+        
         public Recette()
-
+             
         {
+            Ingredients = new List<Ingredient>();
             Images = new List<ImageRecette>();
             Date = DateTime.Now;
         }
-        public Recette(int Id, DateTime Date, string NomUtilisateur, string NomRecette, int? NbPersonne, string Difficulte, string Ingredient, string Realisation, string NomCategory, List<ImageRecette> Images)
+        public Recette(int Id, DateTime Date, string NomUtilisateur, string NomRecette, int? NbPersonne, string Difficulte, List<Ingredient> Ingredients, string Realisation, string NomCategory, List<ImageRecette> Images)
 
         {
             Images = new List<ImageRecette>();
-            Date = date;
-            NomUtilisateur = nomUtilisateur;
-            NomRecette = nomRecette;
-            NbPersonne = nbPersonne;
-            Difficulte = difficulte;
-            Ingredient = ingredient;
-            Realisation = realisation;
-            NomCategory = nomCategory;
+            Date = this.Date;
+            NomUtilisateur = this.NomUtilisateur;
+            NomRecette = this.NomRecette;
+            NbPersonne = this.NbPersonne;
+            Difficulte = this.Difficulte;
+            Ingredients = new List<Ingredient>();
+            Realisation = this.Realisation;
+            NomCategory = this.NomCategory;
         }
        
 

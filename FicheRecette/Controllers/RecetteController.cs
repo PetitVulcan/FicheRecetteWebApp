@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using FicheRecette.Model;
+using FicheRecette.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -57,10 +57,10 @@ namespace FicheRecette.Controllers
 
         [Route("[Controller]/AjouterRecettePost")]
         [HttpPost]
-        public async Task<IActionResult> AjouterRecettePost(DateTime date, string NomUtilisateur, string NomRecette, int? NbPersonne, string Difficulte, string Ingredient, string Realisation, string NomCategory, List<IFormFile> images)
+        public async Task<IActionResult> AjouterRecettePost(DateTime date, string NomUtilisateur, string NomRecette, int? NbPersonne, string Difficulte, List<Ingredient> Ingredients, string Realisation, string NomCategory, List<IFormFile> images)
         {
             
-            Recette r = new Recette { NomRecette = NomRecette, NbPersonne = (int?)NbPersonne, Difficulte = Difficulte, Ingredient = Ingredient, Realisation = Realisation , NomCategory = NomCategory};
+            Recette r = new Recette { NomRecette = NomRecette, NbPersonne = (int?)NbPersonne, Difficulte = Difficulte, Ingredients = Ingredients, Realisation = Realisation , NomCategory = NomCategory};
             r.NomUtilisateur = HttpContext.Session.GetString("nom");
             List<string> errors = new List<string>();
             if (NomRecette == null)
@@ -71,7 +71,7 @@ namespace FicheRecette.Controllers
             {
                 errors.Add("Merci d'indiquer une catégorie.");
             }            
-            if (Ingredient == null)
+            if (Ingredients == null)
             {
                 errors.Add("Merci d'indiquer la liste d'ingrédients.");
             }
@@ -115,10 +115,10 @@ namespace FicheRecette.Controllers
         }
         [Route("[Controller]/ModifierRecettePost")]
         [HttpPost]
-        public async Task<IActionResult> ModifierRecettePost(DateTime date, string NomUtilisateur, string NomRecette, int? NbPersonne, string Difficulte, string Ingredient, string Realisation, string NomCategory, List<IFormFile> images)
+        public async Task<IActionResult> ModifierRecettePost(DateTime date, string NomUtilisateur, string NomRecette, int? NbPersonne, string Difficulte, List<Ingredient> Ingredients, string Realisation, string NomCategory, List<IFormFile> images)
         {
 
-            Recette r = new Recette { NomRecette = NomRecette, NbPersonne = (int?)NbPersonne, Difficulte = Difficulte, Ingredient = Ingredient, Realisation = Realisation, NomCategory = NomCategory };
+            Recette r = new Recette { NomRecette = NomRecette, NbPersonne = (int?)NbPersonne, Difficulte = Difficulte, Ingredients = Ingredients, Realisation = Realisation, NomCategory = NomCategory };
             r.NomUtilisateur = HttpContext.Session.GetString("nom");
             List<string> errors = new List<string>();
             if (NomRecette == null)
@@ -129,7 +129,7 @@ namespace FicheRecette.Controllers
             {
                 errors.Add("Merci d'indiquer une catégorie.");
             }
-            if (Ingredient == null)
+            if (Ingredients == null)
             {
                 errors.Add("Merci d'indiquer la liste d'ingrédients.");
             }

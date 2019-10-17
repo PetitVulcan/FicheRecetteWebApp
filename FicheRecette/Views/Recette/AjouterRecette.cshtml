@@ -1,4 +1,4 @@
-﻿@using FicheRecette.Model
+﻿@using FicheRecette.Models
 
 <div class="Container Recette">
     <div class="Titre">
@@ -92,8 +92,7 @@
             <div><h3 class="Recette">Ingrédients : </h3></div>
             <label>Veuillez saisir la liste des ingrédients : </label>
             <div class="row1">
-                <textarea value="@Model.Ingredient" name="ingredient" class="form-control" placeholder="Liste d'ingrédients"> </textarea>
-
+                <input type="text" name="ingredients" multiple class="form-control" placeholder="Les ingrédients de la recette" />
             </div>
         </div>
         <div class="row RecetteLine">

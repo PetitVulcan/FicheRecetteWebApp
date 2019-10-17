@@ -1,11 +1,11 @@
 ﻿using FicheRecette.Tools;
-using FicheRecette.Model;
+using FicheRecette.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FicheRecette.Model
+namespace FicheRecette.Models
 {
     public class Category
     {

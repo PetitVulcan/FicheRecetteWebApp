@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace FicheRecette.Model
+namespace FicheRecette.Models
 {
     public class ImageRecette
     {

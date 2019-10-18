@@ -68,7 +68,6 @@
                 </select>
             </div>
             <div class="col-lg-4">
-
                 <label>Choisissez la difficulté : </label>
                 <select class="selectpicker" name="Difficulte" size="1" value="@Model.Difficulte">
                     <option value="*">*</option>
@@ -76,7 +75,6 @@
                     <option value="***">***</option>
                     <option value="****">****</option>
                     <option value="*****">*****</option>
-
                 </select>
             </div>
             <div class="col-lg-4">
@@ -84,15 +82,29 @@
                 <div class="row1">
                     <input type="file" name="images" multiple placeholder="Les images de la recette" class="form-control" />
                 </div>
-
             </div>
         </div>
-
         <div class="row RecetteLine">
             <div><h3 class="Recette">Ingrédients : </h3></div>
             <label>Veuillez saisir la liste des ingrédients : </label>
             <div class="row1">
-                <input type="text" name="ingredients" multiple class="form-control" placeholder="Les ingrédients de la recette" />
+                <input type="text" name="Nom" class="form-control" placeholder="nom" />
+                <input type="text" name="Quantite" class="form-control" placeholder="quantité" />
+                <select class="selectpicker" name="Unite" size="1" value="@Model.Difficulte">
+                    <option value="gr">gr</option>
+                    <option value="kg">kg</option>
+                    <option value="ml">ml</option>
+                    <option value="cl">cl</option>
+                    <option value="dl">dl</option>
+                    <option value="L">L</option>
+                    <option value="C à C">C à C</option>
+                    <option value="C à S">C à S</option>
+                    <option value="Unité(s)">Unité(s)</option>
+                    <option value="Bouquet">Bouquet</option>
+                </select>
+                <div class="TitreCentrer">
+                    <button asp-controller="Recette" asp-action="AjouterIngredientPost" type="submit">Ajouter ingredient</button>
+                </div>
             </div>
         </div>
         <div class="row RecetteLine">

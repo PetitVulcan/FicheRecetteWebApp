@@ -1,17 +1,18 @@
-﻿using System.Data.SqlClient;
+﻿using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace FicheRecette.Tools
 {
     public class Connection
     {
-        private static SqlConnection _instance = null;
+        private static MySqlConnection _instance = null;
         private static object _lock = new object();
 
         private Connection()
         {
 
         }
-        public static SqlConnection Instance
+        public static MySqlConnection Instance
         {
             get
             {
@@ -19,7 +20,7 @@ namespace FicheRecette.Tools
                 {
                     if (_instance == null)
                     {
-                        _instance = new SqlConnection(@"Data Source=(LOCALDB)\listerecette;Integrated Security=True");
+                        _instance = new MySqlConnection(@"Server=vps748191.ovh.net;User=c0ficherecette;Password=G4nY!wc4pZX;DataBase=c0FicheRecette");
                     }
                     return _instance;
                 }

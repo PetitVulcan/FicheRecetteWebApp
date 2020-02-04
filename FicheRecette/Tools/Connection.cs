@@ -19,12 +19,12 @@ namespace FicheRecette.Tools
                 {
                     if (_instance == null)
                     {
-                        _instance = new SqlConnection(@"Data Source=(LocalDB)\ficherecette;Integrated Security=True");
+                        _instance = new SqlConnection(@"Server=vps748191.ovh.net;User=c0ficherecette;Password=se5rMLiB@;DataBase=c0FicheRecette");
+                        //_instance = new SqlConnection(@"Data Source=(LocalDB)\ListeRecette;Integrated Security=True");
                     }
                     return _instance;
                 }
             }
         }
-    }
-    
+    }    
 }

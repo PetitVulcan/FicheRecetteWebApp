@@ -6,6 +6,7 @@ namespace FicheRecette.Models
 {
     public class Utilisateur
     {
+        private DateTime date;
         private string nom;
         private string prenom;
         private string nomutilisateur;
@@ -24,24 +25,25 @@ namespace FicheRecette.Models
         public string Nom { get => nom; set => nom = value; }
         public string Prenom { get => prenom; set => prenom = value; }
         public string Admin { get => admin; set => admin = value; }
+        public DateTime Date { get => date; set => date = value; }
 
         public Utilisateur()
         {
-
-        }
-        public Utilisateur(string NomUtilisateur)
-        {
-            NomUtilisateur = nomutilisateur;
-        }
-        public Utilisateur(DateTime Date,string Nom,string Prenom, string NomUtilisateur, string EMail, int NbRecettecree, string Admin)
-        {
-            NbRecettecree = 0;
             Date = DateTime.Now;
-            Nom = nom;
-            Prenom = prenom;
+            NbRecettecree = 0;
+        }
+        public Utilisateur(string NomUtilisateur) : this()
+        {
             NomUtilisateur = nomutilisateur;
-            EMail = eMail;
-            Admin = admin;
+        }
+        public Utilisateur(string Nom,string Prenom, string NomUtilisateur, string EMail, string Mdp, string Admin) : this()
+        {            
+            this.Nom = Nom;
+            this.Prenom = Prenom;
+            this.NomUtilisateur = NomUtilisateur;
+            this.EMail = EMail;
+            this.Mdp = Mdp;
+            this.Admin = Admin;
             
         }
         public override string ToString()

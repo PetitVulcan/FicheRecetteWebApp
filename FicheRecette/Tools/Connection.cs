@@ -20,7 +20,7 @@ namespace FicheRecette.Tools
                 {
                     if (_instance == null)
                     {
-                        _instance = new MySqlConnection(@"Server=vps748191.ovh.net;User=c0ficherecette;Password=G4nY!wc4pZX;DataBase=c0FicheRecette");
+                        _instance = new MySqlConnection(@"Server=vps748191.ovh.net;User=c0ficherecette;Password=se5rMLiB@;DataBase=c0FicheRecette");
                     }
                     return _instance;
                 }

@@ -25,7 +25,7 @@ namespace FicheRecette.Controllers
        
         [HttpPost]
         [Route("Utilisateur/Add")]
-        public IActionResult AjouterUtilisateur(string Nom, string Prenom, string NomUtilisateur, string EMail, int NbRecettecree,string Mdp,string cMdp,string Admin)
+        public IActionResult AjouterUtilisateur(string Nom, string Prenom, string NomUtilisateur, string EMail, string Mdp,string cMdp,string Admin)
         {
             List<string> errors = new List<string>();
             Utilisateur u = new Utilisateur { Nom = Nom, Prenom = Prenom, NomUtilisateur = NomUtilisateur,EMail = EMail, Mdp = Mdp, Admin = Admin};
@@ -60,7 +60,7 @@ namespace FicheRecette.Controllers
             ViewBag.errors = errors;
             if (errors.Count > 0)
             {
-
+                
             }
             else
             {

@@ -9,7 +9,7 @@ namespace FicheRecette.Models
         private DateTime date;
         private string nom;
         private string prenom;
-        private string nomutilisateur;
+        private string nomUtilisateur;
         private string eMail;
         private int id;
         private int nbRecettecree;
@@ -17,7 +17,7 @@ namespace FicheRecette.Models
         private string admin;
 
 
-        public string NomUtilisateur { get => nomutilisateur; set => nomutilisateur = value; }
+        public string NomUtilisateur { get => nomUtilisateur; set => nomUtilisateur = value; }
         public string EMail { get => eMail; set => eMail = value; }
         public int Id { get => id; set => id = value; }
         public int NbRecettecree { get => nbRecettecree; set => nbRecettecree = value; }
@@ -34,7 +34,7 @@ namespace FicheRecette.Models
         }
         public Utilisateur(string NomUtilisateur) : this()
         {
-            NomUtilisateur = nomutilisateur;
+            this.NomUtilisateur = NomUtilisateur;
         }
         public Utilisateur(string Nom,string Prenom, string NomUtilisateur, string EMail, string Mdp, string Admin) : this()
         {            
@@ -47,10 +47,8 @@ namespace FicheRecette.Models
             
         }
         public override string ToString()
-
         {
-            return "NomUtilisateur : " + NomUtilisateur + " - Adresse email : " + EMail + " - Nombre de recette(s) crée(s) : " + NbRecettecree + " Administrateur " + Admin;
-
+            return "NomUtilisateur : " + NomUtilisateur + " - Adresse email : " + EMail + " - Nombre de recette(s) crée(s) : " + NbRecettecree + " - Administrateur : " + Admin;
         }
 
         public void AjouterUtilisateur()

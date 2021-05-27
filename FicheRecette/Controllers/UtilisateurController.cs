@@ -25,10 +25,10 @@ namespace FicheRecette.Controllers
        
         [HttpPost]
         [Route("Utilisateur/Add")]
-        public IActionResult AjouterUtilisateur(string Nom, string Prenom, string NomUtilisateur, string EMail, string Mdp,string cMdp,string Admin)
+        public IActionResult AjouterUtilisateur(string Nom, string Prenom, string NomUtilisateur, string EMail, string Mdp, string cMdp, string Admin)
         {
             List<string> errors = new List<string>();
-            Utilisateur u = new Utilisateur { Nom = Nom, Prenom = Prenom, NomUtilisateur = NomUtilisateur,EMail = EMail, Mdp = Mdp, Admin = Admin};
+            Utilisateur u = new Utilisateur() { Nom = Nom, Prenom = Prenom, NomUtilisateur = NomUtilisateur, EMail = EMail, Mdp = Mdp, Admin = Admin};
             if (Nom == null)
             {
                 errors.Add("Merci de saisir un Nom");
@@ -51,7 +51,7 @@ namespace FicheRecette.Controllers
             }
             if (Mdp != cMdp )
             {
-                errors.Add("Merci de saisir le même mot de passe");
+                errors.Add("Les mots de passes ne sont pas identiques");
             }
             if (u.Exist())
             {

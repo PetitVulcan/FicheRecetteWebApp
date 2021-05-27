@@ -77,8 +77,8 @@ namespace FicheRecette.Tools
 
         public void ModifierRecette(Recette r)
         {
-            MySqlCommand command = new MySqlCommand("Update INTO recette (date,nomutilisateur,nomrecette,nbpersonne,difficulte,realisation,nomcategory) OUTPUT INSERTED.id values(@Date,@NomUtilisateur,@NomRecette,@NbPersonne,@Difficulte,@Realisation,@NomCategory) WHERE Id = @Id", Connection.Instance);
-            command.Parameters.Add(new MySqlParameter("@Idate", SqlDbType.Int) { Value = r.Id });
+            MySqlCommand command = new MySqlCommand("Update INTO recette (nomutilisateur,nomrecette,nbpersonne,difficulte,realisation,nomcategory) OUTPUT INSERTED.id values(@NomUtilisateur,@NomRecette,@NbPersonne,@Difficulte,@Realisation,@NomCategory) WHERE Id = @Id", Connection.Instance);
+            command.Parameters.Add(new MySqlParameter("@Id", SqlDbType.Int) { Value = r.Id });
             command.Parameters.Add(new MySqlParameter("@NomUtilisateur", SqlDbType.VarChar) { Value = r.NomUtilisateur });
             command.Parameters.Add(new MySqlParameter("@NomRecette", SqlDbType.VarChar) { Value = r.NomRecette });
             command.Parameters.Add(new MySqlParameter("@NbPersonne", SqlDbType.Int) { Value = r.NbPersonne });
@@ -137,7 +137,7 @@ namespace FicheRecette.Tools
                 MySqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    Recette r = new Recette {NomCategory = reader.GetString(7), Id = reader.GetInt32(0), NomRecette = reader.GetString(3), NbPersonne = reader.GetInt32(4), Difficulte = reader.GetString(5), NomUtilisateur = reader.GetString(2), Date = reader.GetDateTime(1), };
+                    Recette r = new Recette {NomCategory = reader.GetString(7), Id = reader.GetInt32(0), NomRecette = reader.GetString(3), NbPersonne = reader.GetInt32(4), Difficulte = reader.GetString(5), NomUtilisateur = reader.GetString(2), Date = reader.GetDateTime(1)};
                     listeRecette.Add(r);
 
                 }
@@ -301,10 +301,10 @@ namespace FicheRecette.Tools
         }
         public void AddCategory(Category c)
         {
-            MySqlCommand command = new MySqlCommand("INSERT INTO Category(Titre) OUTPUT INSERTED.ID VALUES(@Titre)", Connection.Instance);
+            MySqlCommand command = new MySqlCommand("INSERT INTO Category(Titre) VALUES(@Titre)", Connection.Instance);
             command.Parameters.Add(new MySqlParameter("@Titre", c.Titre));
             Connection.Instance.Open();
-            c.Id = (int)command.ExecuteScalar();
+            command.ExecuteNonQuery();
             command.Dispose();
             Connection.Instance.Close();
         }
@@ -345,18 +345,18 @@ namespace FicheRecette.Tools
             {
                 u.Admin = "false";
             }
-            MySqlCommand command = new MySqlCommand("INSERT INTO utilisateur (nom,prenom,nomutilisateur,email,nbrecettecree,mdp,admin) VALUES (@nom,@prenom,@NomUtilisateur,@eMail,@NbRecettecree,@Mdp,@Admin)", Connection.Instance);
+            MySqlCommand command = new MySqlCommand("INSERT INTO utilisateur (nom,prenom,nomutilisateur,email,nbrecettecree,mdp,admin) VALUES (@nom,@prenom,@NomUtilisateur,@eMail,@NbRecetteCree,@Mdp,@Admin)", Connection.Instance);
             MD5 md5Hash = MD5.Create();
             string MdpHash = GetMd5Hash(md5Hash, u.Mdp);            
-            command.Parameters.Add(new MySqlParameter("@Nom", SqlDbType.VarChar) { Value = u.Nom });
-            command.Parameters.Add(new MySqlParameter("@Prenom", SqlDbType.VarChar) { Value = u.Prenom });
-            command.Parameters.Add(new MySqlParameter("@NomUtilisateur", SqlDbType.VarChar) { Value = u.NomUtilisateur });
-            command.Parameters.Add(new MySqlParameter("@eMail", SqlDbType.VarChar) { Value = u.EMail });
-            command.Parameters.Add(new MySqlParameter("@NbRecettecree", SqlDbType.Int) { Value= u.NbRecettecree });
-            command.Parameters.Add(new MySqlParameter("@Mdp", SqlDbType.VarChar) { Value = MdpHash });
-            command.Parameters.Add(new MySqlParameter("@Admin", SqlDbType.VarChar) { Value = u.Admin });
+            command.Parameters.Add(new MySqlParameter("@Nom", u.Nom));
+            command.Parameters.Add(new MySqlParameter("@Prenom", u.Prenom));
+            command.Parameters.Add(new MySqlParameter("@NomUtilisateur", u.NomUtilisateur));
+            command.Parameters.Add(new MySqlParameter("@eMail", u.EMail));
+            command.Parameters.Add(new MySqlParameter("@NbRecetteCree", u.NbRecettecree));
+            command.Parameters.Add(new MySqlParameter("@Mdp", MdpHash));
+            command.Parameters.Add(new MySqlParameter("@Admin", u.Admin));
             Connection.Instance.Open();
-            int nbLignes = command.ExecuteNonQuery();
+            command.ExecuteNonQuery();
             command.Dispose();
             Connection.Instance.Close();
             return;
@@ -409,28 +409,22 @@ namespace FicheRecette.Tools
                 reader.Close();
                 command.Dispose();
                 Connection.Instance.Close();
-                if(u.Admin == "true")
-                {
-                    retour = true;
-                }
+                if(u.Admin == "true")                
+                    retour = true;                
                 else
-                {
-                    retour = false;
-                }
+                    retour = false;                
             }
-            else
-            {
-                retour = false;
-            }
+            else            
+                retour = false;            
             return retour;
         }
         public bool LookUser(Utilisateur u)
         {
             bool retour = false;
-            if (u.NomUtilisateur != null)
+            if (u.EMail != null)
             {
-                MySqlCommand command = new MySqlCommand("SELECT * FROM utilisateur where NomUtilisateur=@NomUtilisateur", Connection.Instance);
-                command.Parameters.Add(new MySqlParameter("@NomUtilisateur", u.NomUtilisateur));
+                MySqlCommand command = new MySqlCommand("SELECT * FROM utilisateur where email=@Email", Connection.Instance);
+                command.Parameters.Add(new MySqlParameter("@Email", u.EMail));
                 Connection.Instance.Open();
                 MySqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
@@ -438,18 +432,15 @@ namespace FicheRecette.Tools
                     u.Id = reader.GetInt32(0);
                     retour = true;
                 }
-                else
-                {
+                else                
                     retour = false;
-                }
-                reader.Close();
-                command.Dispose();
                 
+                reader.Close();
+                command.Dispose();                
             }
-            else
-            {
+            else            
                 retour = false;
-            }
+            
             Connection.Instance.Close();
             return retour;
         }
@@ -461,7 +452,7 @@ namespace FicheRecette.Tools
             {
                 MD5 md5Hash = MD5.Create();
                 string MdpHash = GetMd5Hash(md5Hash, Mdp);
-                MySqlCommand command = new MySqlCommand("SELECT Id, nom, prenom FROM utilisateur where NomUtilisateur=@NomUtilisateur and Mdp = @Mdp", Connection.Instance);
+                MySqlCommand command = new MySqlCommand("SELECT Id, nom, prenom FROM utilisateur where nomutilisateur=@NomUtilisateur and Mdp = @Mdp", Connection.Instance);
                 command.Parameters.Add(new MySqlParameter("@NomUtilisateur", NomUtilisateur));
                 command.Parameters.Add(new MySqlParameter("@Mdp", MdpHash));
                 Connection.Instance.Open();
